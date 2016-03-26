@@ -3,6 +3,7 @@ import breakup
 import tweepy
 import translation
 import verse
+import textblob
 from urllib2 import urlopen
 
 
@@ -27,9 +28,19 @@ def main():
       cfg[cfg_keys[i]] = l
 
   api = get_api(cfg)
-  v = verse.get_verse()
-  tweet(v[1]+v[0], api)
-  tweet(v[1] + ' ' + translation.translate_to_converge(v[0],10), api)
+  t1 = ''
+  t2 = ''  
+  while True:
+    try:
+      v = verse.get_verse()
+      t1 = v[1] + v[0]
+      t2 = v[1] + ' ' + translation.translate_to_converge(v[0],10) 
+      break
+    except textblob.exceptions.NotTranslated:
+      print "translator failure"
+
+  tweet(t1, api)
+  tweet(t2, api)
 
 if __name__ == '__main__':
   main()
