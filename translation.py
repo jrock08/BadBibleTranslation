@@ -10,7 +10,7 @@ def translate_to_converge(in_text, max_iter):
         n_text = n_text.translate(from_lang='el', to='la')
         n_text = n_text.translate(from_lang='la', to='en')
 
-        print('%s vs %s'%(c_text, n_text))
+        #print('%s vs %s'%(c_text, n_text))
         if c_text == n_text:
             return '%s'%(n_text)
         c_text = n_text
