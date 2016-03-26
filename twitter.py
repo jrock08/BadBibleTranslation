@@ -14,9 +14,10 @@ def get_api(cfg):
 def main():
   # Fill in the values noted in previous step here
   f = open('keys.txt','r')
+  cfg = {}
   cfg_keys = ["consumer_key", "consumer_secret", "access_token" , "access_token_secret"]
 
-  for i = range(0,4):
+  for i in range(0,4):
       l = f.readline().strip()
       cfg[cfg_keys[i]] = l
 
