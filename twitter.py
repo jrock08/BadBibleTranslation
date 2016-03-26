@@ -1,4 +1,9 @@
+import re
+
 import tweepy
+import translation
+import verse
+from urllib2 import urlopen
 
 
 def get_api(cfg):
@@ -9,14 +14,20 @@ def get_api(cfg):
 def main():
   # Fill in the values noted in previous step here
   cfg = { 
-    "consumer_key"        : "KEY",
-    "consumer_secret"     : "KEY",
-    "access_token"        : "KEY",
-    "access_token_secret" : "KEY" 
+    "consumer_key"        : "",
+    "consumer_secret"     : "",
+    "access_token"        : "",
+    "access_token_secret" : "" 
     }
 
   api = get_api(cfg)
-  tweet = "Test tweet, please ignore"
+  v = verse.get_verse()
+  tweet = v[1] + translation.translate_to_converge(v[0],10)
+  print tweet
+  status = api.update_status(status=v[1]+' '+v[0])
   status = api.update_status(status=tweet) 
   # Yes, tweet is called 'status' rather confusing
 
+
+if __name__ == '__main__':
+  main()
