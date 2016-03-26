@@ -1,5 +1,5 @@
 import re
-
+import breakup
 import tweepy
 import translation
 import verse
@@ -11,9 +11,9 @@ def get_api(cfg):
   auth.set_access_token(cfg['access_token'], cfg['access_token_secret'])
   return tweepy.API(auth)
 
-def tweet(text):
+def tweet(text, api):
   tweets = breakup.split_tweet(text)
-  for tweet in tweets:
+  for tweet in reversed(tweets):
     api.update_status(status=tweet)
 
 def main():
@@ -28,9 +28,8 @@ def main():
 
   api = get_api(cfg)
   v = verse.get_verse()
-  tweet(v[1]+v[0])
-  tweet(v[1] + ' ' + translation.translate_to_converge(v[0],10))
-  status = api.update_status(status=tweet) 
+  tweet(v[1]+v[0], api)
+  tweet(v[1] + ' ' + translation.translate_to_converge(v[0],10), api)
 
 if __name__ == '__main__':
   main()
