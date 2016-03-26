@@ -13,15 +13,19 @@ class VerseParser(HTMLParser):
       self.v = True
   def handle_data(self, data):
     if self.v:
-      self.verse = data
+      self.verse = data.decode('utf-8')
     if not self.v:
-      self.book = data
+      self.book = data.decode('utf-8')
 
 def get_verse():
   response = urllib2.urlopen('http://labs.bible.org/api/?passage=random')
   html = response.read()
   parser = VerseParser()
-  print 'html: ' + html
   parser.feed(html)
-  return (parser.verse, parser.book)
+
+  v = parser.verse
+  if v.startswith('"') and v.endswith('"'):
+    v = v[1:-1]
+
+  return (v, parser.book)
 
