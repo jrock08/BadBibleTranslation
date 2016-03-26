@@ -22,5 +22,10 @@ def get_verse():
   html = response.read()
   parser = VerseParser()
   parser.feed(html)
-  return (parser.verse, parser.book)
+
+  v = parser.verse
+  if v.startswith('"') and v.endswith('"'):
+    v = v[1:-1]
+
+  return (v, parser.book)
 

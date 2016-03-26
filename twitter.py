@@ -14,17 +14,19 @@ def get_api(cfg):
 def main():
   # Fill in the values noted in previous step here
   cfg = { 
-    "consumer_key"        : "",
-    "consumer_secret"     : "",
-    "access_token"        : "",
-    "access_token_secret" : "" 
+    "consumer_key"        : "Ten1I3lzqerRKhsNNg8Tva1Dt",
+    "consumer_secret"     : "vdb4BiDSodfVKieV2rGUUfkLKRlj6PQyW2rsLfeLrWjoT7BUbr",
+    "access_token"        : "713781543773155329-T5JQdf5fDx9GDaTb1jDzqGzTYMcIq7B",
+    "access_token_secret" : "f468u35BW3JRdLE38zw8095C0J0oQPC0I9Xj5FRN7Jj4l" 
     }
 
   api = get_api(cfg)
   v = verse.get_verse()
-  tweet = v[1] + translation.translate_to_converge(v[0],10)
+  while len(v[1]) >= 140:
+    v = verse.get_verse() 
+  tweet = v[1] + ' ' + translation.translate_to_converge(v[0],10)
   print tweet
-  status = api.update_status(status=v[1]+' '+v[0])
+  status = api.update_status(status=v[1]+v[0])
   status = api.update_status(status=tweet) 
   # Yes, tweet is called 'status' rather confusing
 
