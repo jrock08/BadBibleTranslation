@@ -13,12 +13,12 @@ def get_api(cfg):
 
 def main():
   # Fill in the values noted in previous step here
-  cfg = { 
-    "consumer_key"        : "Ten1I3lzqerRKhsNNg8Tva1Dt",
-    "consumer_secret"     : "vdb4BiDSodfVKieV2rGUUfkLKRlj6PQyW2rsLfeLrWjoT7BUbr",
-    "access_token"        : "713781543773155329-T5JQdf5fDx9GDaTb1jDzqGzTYMcIq7B",
-    "access_token_secret" : "f468u35BW3JRdLE38zw8095C0J0oQPC0I9Xj5FRN7Jj4l" 
-    }
+  f = open('keys.txt','r')
+  cfg_keys = ["consumer_key", "consumer_secret", "access_token" , "access_token_secret"]
+
+  for i = range(0,4):
+      l = f.readline().strip()
+      cfg[cfg_keys[i]] = l
 
   api = get_api(cfg)
   v = verse.get_verse()
